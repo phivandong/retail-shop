@@ -40,4 +40,12 @@ public class UserServiceImpl implements UserService {
         user.setCart(newCart);
         userRepository.save(user);
     }
+
+    @Override
+    public List<Item> getCart(long userId) {
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        User user = userRepository.findById(userId).get();
+        return gson.fromJson(user.getCart(), List.class);
+    }
 }

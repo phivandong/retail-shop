@@ -16,4 +16,9 @@ public class ItemServiceImpl implements ItemService {
     public void create(ItemDto itemDto) {
         itemRepository.save(Item.mapToEntity(itemDto));
     }
+
+    @Override
+    public Item getItem(long itemId) {
+        return itemRepository.findById(itemId).get();
+    }
 }

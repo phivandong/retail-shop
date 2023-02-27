@@ -1,6 +1,7 @@
 package com.pvdong.retailshop.controller;
 
 import com.pvdong.retailshop.dto.ItemDto;
+import com.pvdong.retailshop.entity.Item;
 import com.pvdong.retailshop.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,5 +17,11 @@ public class ItemController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createUser(@RequestBody ItemDto itemDto) {
         itemService.create(itemDto);
+    }
+
+    @GetMapping("/get-item/{itemId}")
+    @ResponseStatus(HttpStatus.OK)
+    public Item getItem(@PathVariable("itemId") long itemId) {
+        return itemService.getItem(itemId);
     }
 }
