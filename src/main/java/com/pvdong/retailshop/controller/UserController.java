@@ -1,5 +1,6 @@
 package com.pvdong.retailshop.controller;
 
+import com.pvdong.retailshop.dto.LoginRequest;
 import com.pvdong.retailshop.dto.UserDto;
 import com.pvdong.retailshop.entity.Item;
 import com.pvdong.retailshop.service.UserService;
@@ -21,15 +22,21 @@ public class UserController {
         userService.create(userDto);
     }
 
-    @PostMapping("/buy/{userId}/{itemId}")
+    @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
-    public void buyItem(@PathVariable("userId") long userId, @PathVariable("itemId") long itemId) {
-        userService.buy(userId, itemId);
+    public String login(@RequestBody LoginRequest loginRequest) {
+        return userService.login(loginRequest);
     }
 
-    @GetMapping("/get-cart/{userId}")
+    @PostMapping("/buy/{itemId}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Item> getCart(@PathVariable("userId") long userId) {
-        return userService.getCart(userId);
+    public void buyItem(@PathVariable("itemId") long itemId) {
+        userService.buy(itemId);
+    }
+
+    @GetMapping("/get-cart")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Item> getCart() {
+        return userService.getCart();
     }
 }
